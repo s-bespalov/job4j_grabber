@@ -15,10 +15,11 @@ public class Post {
 
     private LocalDateTime created;
 
-    public Post(String title, String link, LocalDateTime created) {
+    public Post(String title, String link, LocalDateTime created, String description) {
         this.title = title;
         this.link = link;
         this.created = created;
+        this.description = description;
     }
 
     @Override
@@ -57,10 +58,6 @@ public class Post {
             result = 31 * result + (created != null ? created.hashCode() : 0);
         }
         return result;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public void setId(int id) {
