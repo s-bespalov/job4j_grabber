@@ -18,6 +18,18 @@ public class HabrCareerParse {
 
     private static final DateTimeParser DATE_TIME_PARSER = new HabrCareerDateTimeParser();
 
+    private static String retrieveDescription(String link) {
+        try {
+            var connection = Jsoup.connect(link);
+            var document = connection.get();
+            var description = document.select(".vacancy-description__text").first();
+            return Objects.requireNonNull(description).text();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     public static void main(String[] args) {
         var vacancies = new ArrayList<Vacancy>();
         IntStream.rangeClosed(1, 5)
@@ -43,6 +55,7 @@ public class HabrCareerParse {
                 });
         vacancies.forEach(System.out::println);
         System.out.println(vacancies.size());
+        System.out.println(retrieveDescription(vacancies.get(0).link));
     }
 
     private record Vacancy(String name, String link, LocalDateTime date) {
