@@ -40,22 +40,15 @@ public class Post {
         if (id != post.id) {
             return false;
         }
-        if (!Objects.equals(title, post.title)) {
-            return false;
-        }
-        if (!Objects.equals(link, post.link)) {
-            return false;
-        }
-        return Objects.equals(created, post.created);
+
+        return Objects.equals(link, post.link);
     }
 
     @Override
     public int hashCode() {
         int result = id;
         if (id == 0) {
-            result = (title != null ? title.hashCode() : 0);
-            result = 31 * result + (link != null ? link.hashCode() : 0);
-            result = 31 * result + (created != null ? created.hashCode() : 0);
+            result = (link != null ? link.hashCode() : 0);
         }
         return result;
     }
