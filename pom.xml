@@ -17,9 +17,15 @@
 
     <profiles>
         <profile>
-            <id>production</id>
+            <id>rabbit</id>
             <properties>
                 <liquibase.config>src/main/resources/rabbit.properties</liquibase.config>
+            </properties>
+        </profile>
+        <profile>
+            <id>production</id>
+            <properties>
+                <liquibase.config>src/main/resources/liquibase.properties</liquibase.config>
             </properties>
         </profile>
     </profiles>
