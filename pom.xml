@@ -28,6 +28,15 @@
                 <liquibase.config>src/main/resources/liquibase.properties</liquibase.config>
             </properties>
         </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <liquibase.config>src/main/resources/liquibase_test.properties</liquibase.config>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
     </profiles>
 
     <dependencies>
@@ -149,6 +158,15 @@
                 <configuration>
                     <propertyFile>${liquibase.config}</propertyFile>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <!--<goal>clearCheckSums</goal>-->
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
