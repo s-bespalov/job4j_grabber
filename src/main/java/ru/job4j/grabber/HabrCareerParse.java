@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 
 public class HabrCareerParse implements Parse {
 
-    private static final String SOURCE_LINK = "https://career.habr.com";
+    public static final String SOURCE_LINK = "https://career.habr.com";
     private static final String PREFIX = "/vacancies?page=";
     private static final String SUFFIX = "&q=Java%20developer&type=all";
 
