@@ -57,12 +57,7 @@ public class PsqlStore implements Store {
         try (var statement = connection.createStatement()) {
             try (var result = statement.executeQuery("SELECT * FROM post;")) {
                 while (result.next()) {
-                    var post = new Post(
-                            result.getString("name"),
-                            result.getString("link"),
-                            result.getTimestamp("created").toLocalDateTime(),
-                            result.getString("text"));
-                    post.setId(result.getInt("id"));
+                    var post = createPost(result);
                     list.add(post);
                 }
             }
@@ -80,12 +75,7 @@ public class PsqlStore implements Store {
             if (statement.execute()) {
                 try (var resultSet = statement.getResultSet()) {
                     if (resultSet.next()) {
-                        rsl = new Post(
-                                resultSet.getString("name"),
-                                resultSet.getString("link"),
-                                resultSet.getTimestamp("created").toLocalDateTime(),
-                                resultSet.getString("text"));
-                        rsl.setId(resultSet.getInt("id"));
+                        rsl = createPost(resultSet);
                     }
                 }
             }
@@ -100,5 +90,15 @@ public class PsqlStore implements Store {
         if (connection != null) {
             connection.close();
         }
+    }
+
+    private static Post createPost(ResultSet set) throws SQLException {
+        var rsl = new Post(
+                set.getString("name"),
+                set.getString("link"),
+                set.getTimestamp("created").toLocalDateTime(),
+                set.getString("text"));
+        rsl.setId(set.getInt("id"));
+        return rsl;
     }
 }
